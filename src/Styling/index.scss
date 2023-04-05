@@ -8,20 +8,82 @@
   justify-content: center;
   gap: 15px;
 }
-.post-list-text-title {
+.post-list-text-title,
+.groups-categories-text-title,
+.post-list-images-title {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
 }
-.controls {
+.posts-list {
+  img {
+    height: 300px;
+    width: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+}
+.images-paginator {
   display: flex;
   justify-content: center;
-  gap: 30px;
-  margin-bottom: 40px;
+  margin: 30px 0px;
+}
+.post-images {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+hr {
+  color: black;
+  background: black;
+  border: 1px solid black;
+  width: 100%;
+}
+.category-name {
+  margin: 30px 0px;
+}
+.checkbox-with-label{
+    display: flex;
+    gap: 10px;
+}
+.controls-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 20px;
+  justify-items: center;
+}
+.controls {
+  .controls-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+    width: fit-content;
+    margin: 15px auto;
+    button {
+      width: 115px !important;
+    }
+  }
+}
+.start-post-button {
+  display: flex;
+  justify-content: center;
+}
+.p-button-secondary {
+  background-color: #e76f51 !important;
+  border-color: #e76f51 !important;
+  &:focus {
+    box-shadow: 0 0 0 2px #e76f51, 0 0 0 4px #e76f51, 0 1px 2px 0 black !important;
+  }
 }
 .table-header {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+}
+.text-center {
+  text-align: center !important;
 }

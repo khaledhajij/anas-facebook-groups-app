@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
-import groupsData from '../data'
 import { Tag } from 'primereact/tag'
 import { Button } from 'primereact/button'
-import CheckboxInput from './CheckboxInput'
-const Table = () => {
-  const [groups, setGroups] = React.useState(groupsData)
-  const [selectedRows, setSelectedRows] = useState([])
+import CheckboxInput from '../CheckboxInput'
+import SelectedGroupsTable from './SelectedGroupsTable'
+import {  useSelector } from 'react-redux'
+import { selectedGroupsSelector } from '../../groupsSlice'
+const Table = ({groups, setCategories, categories,setGroups}) => {
+
+  const selectedGroups = useSelector(selectedGroupsSelector)
+  const [visible, setVisible] = useState(false)
+
   const statusBodyTemplate = product => {
     return (
       <Tag value={product.inventoryStatus} severity='success'>
@@ -19,10 +23,16 @@ const Table = () => {
     return (
       <div className='table-header'>
         <p>Groups</p>
-        <Button disabled={!selectedRows.length}>Save selected groups as a category</Button>
+        <Button
+          disabled={!selectedGroups.length}
+          onClick={() => setVisible(true)}
+        >
+          Save selected groups as a category
+        </Button>
       </div>
     )
   }
+
   return (
     <div className='table'>
       <DataTable
@@ -35,7 +45,6 @@ const Table = () => {
         rows={10}
         rowsPerPageOptions={[5, 10, 25, 50]}
         removableSort
-        filterDisplay='row'
         className='groups-table'
         resizableColumns
       >
@@ -43,7 +52,8 @@ const Table = () => {
           body={rowData => (
             <CheckboxInput
               groups={groups}
-              setSelectedRows={setSelectedRows}
+              selectedGroups={selectedGroups}
+              // setSelectedRows={setSelectedGroups}
               rowData={rowData}
               id={rowData.id}
             />
@@ -56,7 +66,7 @@ const Table = () => {
           sortable
           field='name'
           header='Name'
-          style={{width: "33%"}}
+          style={{ width: '33%' }}
         ></Column>
         <Column
           filter
@@ -67,6 +77,7 @@ const Table = () => {
         ></Column>
         <Column
           filter
+          style={{ width: '100px' }}
           resizeable
           filterPlaceholder='Filter by members count'
           dataType='numeric'
@@ -74,8 +85,18 @@ const Table = () => {
           field='members'
           header='Members'
           body={statusBodyTemplate}
+          bodyClassName='text-center'
         ></Column>
       </DataTable>
+      <SelectedGroupsTable
+        setGroups={setGroups}
+        selectedGroups={selectedGroups}
+        // setSelectedGroups={setSelectedGroups}
+        visible={visible}
+        setVisible={setVisible}
+        setCategories={setCategories}
+        categories={categories}
+      />
     </div>
   )
 }

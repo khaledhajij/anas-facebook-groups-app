@@ -7,21 +7,27 @@ const PhotosDialog = (props) => {
   const [visible, setVisible] = useState(false)
 
   const handlePhotoUpload = event => {
-    props.setPhotos(event.files)
+    props.setPhotos(photos => [...photos, ...event.files])
   }
 
+  const handleCancel = () => {
+    props.setPhotos([])
+    setVisible(false)
+  }
   const photoDialogFooter = (
     <>
       <Button
         label='Save'
         icon='pi pi-check'
         onClick={() => setVisible(false)}
+        className='p-button-success'
+        disabled={!props.photos.length}
       />
       <Button
         label='Cancel'
         icon='pi pi-times'
-        onClick={() => setVisible(false)}
-        className='p-button-secondary'
+        onClick={() => handleCancel()}
+        className='p-button-danger'
       />
     </>
   )
@@ -40,17 +46,11 @@ const PhotosDialog = (props) => {
           name='photo'
           url='#'
           accept='image/*'
-          maxFileSize={1000000}
-          onUpload={handlePhotoUpload}
+          maxFileSize={100000000}
+          onSelect={handlePhotoUpload}
           multiple
+          emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>}
         />
-        {props?.photos?.map(photo => (
-          <img
-            key={photo.name}
-            src={URL.createObjectURL(photo)}
-            alt={photo.name}
-          />
-        ))}
       </Dialog>
     )
   }

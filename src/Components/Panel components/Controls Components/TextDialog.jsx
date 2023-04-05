@@ -3,35 +3,30 @@ import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
 import { InputTextarea } from 'primereact/inputtextarea'
 
-const TextDialog = (props) => {
+const TextDialog = props => {
   const [visible, setVisible] = useState(false)
-  console.log(props)
-  const showDialog = () => {
-    setVisible(true)
-  }
-
-  const hideDialog = () => {
-    setVisible(false)
-  }
 
   const handleAccept = () => {
-    // Do something with the text
-    // Hide the dialog
-    hideDialog()
+    setVisible(false)
+    props.setShownText(props.text)
   }
 
   const handleDecline = () => {
-    // Hide the dialog
-    hideDialog()
+    setVisible(false)
+    props.setText('')
   }
 
   return (
     <div>
-      <Button label='Text' className='p-button-rounded' onClick={showDialog} />
+      <Button
+        label='Text'
+        className='p-button-rounded'
+        onClick={() => setVisible(true)}
+      />
       <Dialog
         header='Enter Text'
         visible={visible}
-        onHide={hideDialog}
+        onHide={() => setVisible(false)}
         modal
         style={{ width: '50vw' }}
         footer={
@@ -40,8 +35,15 @@ const TextDialog = (props) => {
               label='Decline'
               icon='pi pi-times'
               onClick={handleDecline}
+              className='p-button-danger'
             />
-            <Button label='Accept' icon='pi pi-check' onClick={handleAccept} />
+            <Button
+              disabled={!props.text}
+              className='p-button-success'
+              label='Accept'
+              icon='pi pi-check'
+              onClick={handleAccept}
+            />
           </div>
         }
       >
