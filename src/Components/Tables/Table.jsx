@@ -6,9 +6,11 @@ import { Button } from 'primereact/button'
 import CheckboxInput from '../CheckboxInput'
 import SelectedGroupsTable from './SelectedGroupsTable'
 import {  useSelector } from 'react-redux'
-import { selectedGroupsSelector } from '../../groupsSlice'
-const Table = ({groups, setCategories, categories,setGroups}) => {
-
+import { groupsSelector, selectedGroupsSelector } from '../../groupsSlice'
+import { categoriesSelector } from '../../CategoriesSlice'
+const Table = () => {
+  const groups = useSelector(groupsSelector)
+  const categories = useSelector(categoriesSelector)
   const selectedGroups = useSelector(selectedGroupsSelector)
   const [visible, setVisible] = useState(false)
 
@@ -89,12 +91,12 @@ const Table = ({groups, setCategories, categories,setGroups}) => {
         ></Column>
       </DataTable>
       <SelectedGroupsTable
-        setGroups={setGroups}
+        // setGroups={setGroups}
         selectedGroups={selectedGroups}
         // setSelectedGroups={setSelectedGroups}
         visible={visible}
         setVisible={setVisible}
-        setCategories={setCategories}
+        // setCategories={setCategories}
         categories={categories}
       />
     </div>

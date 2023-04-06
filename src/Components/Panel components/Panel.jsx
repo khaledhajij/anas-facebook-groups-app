@@ -2,9 +2,13 @@ import React, { useState } from 'react'
 import Controls from './Controls Components/Controls'
 import PostsList from './PostsList'
 import CategoriesTable from '../Tables/CategoriesTable'
+import { useSelector } from 'react-redux'
+import { categoriesSelector } from '../../CategoriesSlice'
 
-const Panel = ({ categories, setCategories, selectedGroups, setSelectedGroups }) => {
+const Panel = ({ selectedGroups, setSelectedGroups }) => {
+  
 
+  const categories = useSelector(categoriesSelector)
   const [text, setText] = useState('')
   const [photos, setPhotos] = useState([])
   const [shownText, setShownText] = useState(text)
@@ -29,7 +33,7 @@ const Panel = ({ categories, setCategories, selectedGroups, setSelectedGroups })
       />
       <CategoriesTable
         categories={categories}
-        setCategories={setCategories}
+        // setCategories={setCategories}
         selectedGroups={selectedGroups}
         setSelectedGroups={setSelectedGroups}
       />

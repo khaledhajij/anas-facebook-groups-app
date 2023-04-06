@@ -5,27 +5,29 @@ import { Dialog } from 'primereact/dialog'
 import React, { useState } from 'react'
 import { InputText } from 'primereact/inputtext'
 import { nanoid } from 'nanoid'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectedGroupsSelector } from '../../groupsSlice'
+import { addCategory } from '../../CategoriesSlice'
 
 const SelectedGroupsTable = ({
   visible,
-  setVisible,
-  selectedGroups,
-  setCategories,
-  setSelectedGroups,
-  setGroups
+  setVisible
+  // selectedGroups,
+  // setCategories,
+  // setSelectedGroups,
+  // setGroups
 }) => {
+  const dispatch = useDispatch()
+  const selectedGroups = useSelector(selectedGroupsSelector)
   const [text, setText] = useState('')
   const handleAccept = () => {
-    setCategories(categories => [
-      ...categories,
-      { name: text, id: nanoid(), selected: true, groups: selectedGroups }
-    ])
-    setSelectedGroups([])
-    setGroups(groups =>
-      groups.map(group => {
-        return { ...group, selected: false }
-      })
-    )
+    const category = {
+      name: text,
+      categoryGroups: selectedGroups,
+      selected: false,
+      id: nanoid()
+    }
+    dispatch(addCategory({ category }))
   }
   return (
     <div className='selected-groups-table'>

@@ -1,16 +1,16 @@
 import { Checkbox } from 'primereact/checkbox'
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { groupSelected, groupsSelector } from '../groupsSlice'
 
 const CheckboxInput = props => {
-  const [checked, setChecked] = useState(props.rowData.selected)
-  const toggleCheckboxes = id => {
-    const corrRow = props.groups.find(row => row.id === id)
-    setChecked(preValue => !preValue)
-  }
+  const dispatch = useDispatch()
+  const groups = useSelector(groupsSelector)
+  const matchingGroup = groups.find(group => group.id === props.rowData.id)
   return (
     <Checkbox
-      onChange={() => toggleCheckboxes(props.rowData.id)}
-      checked={checked}
+      onChange={() => dispatch(groupSelected({ id: props.rowData.id }))}
+      checked={matchingGroup.selected}
     ></Checkbox>
   )
 }

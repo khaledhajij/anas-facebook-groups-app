@@ -3,9 +3,14 @@ import { Checkbox } from 'primereact/checkbox'
 import { Column } from 'primereact/column'
 import { DataTable } from 'primereact/datatable'
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { categoriesSelector, categoryCheckboxChecked } from '../../CategoriesSlice'
+import { categorySelected } from '../../groupsSlice'
 
-const CategoriesTable = ({ categories, setCategories, setSelectedGroups }) => {
+const CategoriesTable = ({ setSelectedGroups }) => {
+  const dispatch = useDispatch()
   const [expandedRows, setExpandedRows] = useState(null)
+  const categories = useSelector(categoriesSelector)
   const rowExpansionTemplate = data => {
     return (
       <div className='p-3'>
@@ -18,16 +23,8 @@ const CategoriesTable = ({ categories, setCategories, setSelectedGroups }) => {
     )
   }
   const handleCheck = rowData => {
-    console.log(rowData)
-    setCategories(categories =>
-      [...categories].map(category =>
-        !(category.id === rowData.id)
-          ? category
-          : { ...category, selected: !category.selected }
-      )
-    )
-
-    setSelectedGroups(selectedGroups => [...selectedGroups, rowData.groups])
+    dispatch(categorySelected(rowData.categoryGroups.map(group => group.id)))
+    dispatch(categoryCheckboxChecked(rowData))
   }
   return (
     <div className='categories-table'>
@@ -37,9 +34,6 @@ const CategoriesTable = ({ categories, setCategories, setSelectedGroups }) => {
           icon='pi pi-trash'
           disabled={!categories.length}
           className='p-button-rounded p-button-danger'
-          onClick={() => {
-            setCategories([])
-          }}
         />
       </div>
       <DataTable
