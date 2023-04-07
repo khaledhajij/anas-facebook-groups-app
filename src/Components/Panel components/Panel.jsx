@@ -1,20 +1,15 @@
-import React, { useState } from 'react'
-import Controls from './Controls Components/Controls'
-import PostsList from './PostsList'
-import CategoriesTable from '../Tables/CategoriesTable'
-import { useSelector } from 'react-redux'
-import { categoriesSelector } from '../../CategoriesSlice'
+import React, { useState } from "react";
+import Controls from "./Controls Components/Controls";
+import PostsList from "./PostsList";
+import CategoriesTable from "../Tables/CategoriesTable";
 
-const Panel = ({ selectedGroups, setSelectedGroups }) => {
-  
-
-  const categories = useSelector(categoriesSelector)
-  const [text, setText] = useState('')
-  const [photos, setPhotos] = useState([])
-  const [shownText, setShownText] = useState(text)
+const Panel = () => {
+  const [text, setText] = useState("");
+  const [photos, setPhotos] = useState([]);
+  const [shownText, setShownText] = useState(text);
 
   return (
-    <div className='panel'>
+    <div className="panel">
       <Controls
         shownText={shownText}
         setShownText={setShownText}
@@ -31,14 +26,9 @@ const Panel = ({ selectedGroups, setSelectedGroups }) => {
         photos={photos}
         setPhotos={setPhotos}
       />
-      <CategoriesTable
-        categories={categories}
-        // setCategories={setCategories}
-        selectedGroups={selectedGroups}
-        setSelectedGroups={setSelectedGroups}
-      />
+      <CategoriesTable />
     </div>
-  )
-}
+  );
+};
 
-export default Panel
+export default Panel;

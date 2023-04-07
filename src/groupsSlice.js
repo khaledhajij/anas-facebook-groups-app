@@ -1,37 +1,38 @@
-import { createSlice } from '@reduxjs/toolkit'
-import groupsData from './data'
+import { createSlice } from "@reduxjs/toolkit";
+import groupsData from "./data";
 
 const groupsSlice = createSlice({
-  name: 'groups',
+  name: "groups",
   initialState: groupsData,
   reducers: {
     groupSelected: (state, action) => {
-      return state.map(group => {
+      return state.map((group) => {
         return group.id !== action.payload.id
           ? group
-          : { ...group, selected: !group.selected }
-      })
+          : { ...group, selected: !group.selected };
+      });
     },
     categorySelected: (state, action) => {
-      console.log(action.payload)
-      return state.map(group =>
+      return state.map((group) =>
         !action.payload.includes(group.id)
           ? group
           : { ...group, selected: true }
-      )
+      );
     },
     categoryUnselected: (state, action) => {
-      return state.map(group =>
+      console.log(action.payload)
+      return state.map((group) =>
         !action.payload.includes(group.id)
           ? group
-          : { ...group, selected: true }
-      )
-    }
-  }
-})
+          : { ...group, selected: false }
+      );
+    },
+  },
+});
 
-export default groupsSlice.reducer
-export const groupsSelector = state => state.groups
-export const selectedGroupsSelector = state =>
-  state.groups.filter(group => group.selected)
-export const { groupSelected, categorySelected } = groupsSlice.actions
+export default groupsSlice.reducer;
+export const groupsSelector = (state) => state.groups;
+export const selectedGroupsSelector = (state) =>
+  state.groups.filter((group) => group.selected);
+export const { groupSelected, categorySelected, categoryUnselected } =
+  groupsSlice.actions;

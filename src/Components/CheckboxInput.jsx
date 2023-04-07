@@ -1,5 +1,5 @@
 import { Checkbox } from 'primereact/checkbox'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { groupSelected, groupsSelector } from '../groupsSlice'
 

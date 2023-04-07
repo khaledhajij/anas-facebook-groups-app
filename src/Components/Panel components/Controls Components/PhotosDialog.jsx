@@ -32,6 +32,33 @@ const PhotosDialog = (props) => {
     </>
   )
 
+  const template = {
+    // Hide the upload and cancel buttons by setting their display to "none"
+    uploadButton: null,
+    cancelButton: null,
+    // You can add additional elements to the template if needed
+    // For example, you could add a custom button to trigger the file selection dialog
+    chooseButton: (
+      <button className="p-button p-fileupload-choose p-component" type="button">
+        <span className="p-button-icon p-c pi pi-plus"></span>
+        <span className="p-button-label p-c">Choose</span>
+      </button>
+    ),
+    // You can also customize the progress bar and file name display
+    progressBar: (
+      <div className="p-progressbar p-component">
+        <div className="p-progressbar-value p-progressbar-value-now" style={{ width: '0%' }}></div>
+      </div>
+    ),
+    fileNameTemplate: (file) => {
+      return (
+        <div className="p-fileupload-filename">
+          {file.name}
+        </div>
+      );
+    },
+  };
+
   const renderPhotoDialog = () => {
     return (
       <Dialog
@@ -50,6 +77,7 @@ const PhotosDialog = (props) => {
           onSelect={handlePhotoUpload}
           multiple
           emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>}
+          itemTemplate={template}
         />
       </Dialog>
     )
