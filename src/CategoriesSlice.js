@@ -1,30 +1,30 @@
-import { createSlice } from "@reduxjs/toolkit";
-import ErrorToast from "./Components/Toasts/ErrorToast";
+import { createSlice } from '@reduxjs/toolkit'
+import ErrorToast from './Components/Toasts/ErrorToast'
 
 const categoriesSlice = createSlice({
-  name: "categories",
+  name: 'categories',
   initialState: [],
   reducers: {
     addCategory: (state, action) => {
-      const categoriesNames = state.map((category) => category.name);
+      const categoriesNames = state.map(category => category.name)
       if (categoriesNames.includes(action.payload.category.name)) {
-        return <ErrorToast />;
+        return <ErrorToast />
       }
-      state.push(action.payload.category);
+      state.push(action.payload.category)
     },
     categoryCheckboxChecked: (state, action) => {
-      return state.map((category) =>
+      return state.map(category =>
         category.id === action.payload.id
           ? { ...category, selected: !category.selected }
           : category
-      );
+      )
     },
-    categoriesDeleted: (state, action) => {
-      return [];
-    },
-  },
-});
-export default categoriesSlice.reducer;
-export const categoriesSelector = (state) => state.categories;
-export const { addCategory, categoryCheckboxChecked, categoriesDeleted } =
-  categoriesSlice.actions;
+    categoryDeleted: (state, action) => {
+      return state.filter(category => category.id !== action.payload.id)
+    }
+  }
+})
+export default categoriesSlice.reducer
+export const categoriesSelector = state => state.categories
+export const { addCategory, categoryCheckboxChecked, categoryDeleted } =
+  categoriesSlice.actions

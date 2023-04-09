@@ -12,6 +12,23 @@ input.p-inputtext.p-component.p-filled.p-inputnumber-input {
   width: 75px;
 }
 
+.name-icon {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.name-icon > * {
+  font-weight: bold;
+}
+
+.group-name {
+  font-size: 18px;
+}
+
+.group-id {
+  font-size: 12px;
+}
+
 .post-options {
   display: flex;
   gap: 10px;
@@ -19,7 +36,8 @@ input.p-inputtext.p-component.p-filled.p-inputnumber-input {
 }
 
 .panel {
-  width: 25vw;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 .flex {
@@ -31,6 +49,13 @@ input.p-inputtext.p-component.p-filled.p-inputnumber-input {
 .App {
   display: flex;
   justify-content: center;
+  background: #d5d5d5;
+  gap: 150px;
+}
+
+.name-column {
+  display: flex;
+  align-items: center;
   gap: 15px;
 }
 
@@ -44,12 +69,24 @@ input.p-inputtext.p-component.p-filled.p-inputnumber-input {
   gap: 10px;
 }
 
+.images-table td, .images-table th {
+  text-align: -webkit-center !important;
+}
+
 .posts-list img {
-  height: 300px;
-  width: 300px;
+  height: 100px;
+  width: 100px;
   -o-object-fit: cover;
      object-fit: cover;
-  border-radius: 10px;
+  border-radius: 2px;
+}
+
+.p-fileupload-buttonbar button {
+  display: none;
+}
+
+.p-fileupload-file-badge {
+  display: none;
 }
 
 .images-paginator {
@@ -83,7 +120,8 @@ hr {
 }
 
 .controls .controls-buttons {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   justify-content: center;
   gap: 30px;
   margin-bottom: 20px;

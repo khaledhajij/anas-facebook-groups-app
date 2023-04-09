@@ -1,23 +1,33 @@
 import React, { useState } from 'react'
-import { InputTextarea } from 'primereact/inputtextarea'
+import { DataTable } from 'primereact/datatable'
 import { Button } from 'primereact/button'
 import { Paginator } from 'primereact/paginator'
+import { Column } from 'primereact/column'
+import { InputTextarea } from 'primereact/inputtextarea'
 
 const PostsList = props => {
-  const [first, setFirst] = useState(0)
-  const urls = props.photos.map(obj => obj.objectURL)
-  const handleTextDelete = () => {
-    props.setText('')
-    props.setShownText('')
+  const handleDelete = index => {
+    const newPhotos = [...props.photos]
+    newPhotos.splice(index, 1)
+    props.setPhotos(newPhotos)
   }
 
-  const handlePhotosDelete = () => {
-    props.setPhotos([])
-  }
+  const photosWithButtons = props.photos.map((photo, index) => ({
+    image: <img src={photo.objectURL} alt='' height='100' />,
+    button: (
+      <Button
+        icon='pi pi-trash'
+        className='p-button-rounded p-button-danger'
+        onClick={() => handleDelete(index)}
+      />
+    )
+  }))
 
-  const onPageChange = event => {
-    setFirst(event.first)
-  }
+  const columns = [
+    { field: 'image', header: 'Image' },
+    { field: 'button', header: '' }
+  ]
+
   return (
     <div className='posts-list'>
       <div className='post-list-text-title'>
@@ -26,7 +36,10 @@ const PostsList = props => {
           disabled={!props.shownText}
           icon='pi pi-trash'
           className='p-button-rounded p-button-danger'
-          onClick={handleTextDelete}
+          onClick={() => {
+            props.setText('')
+            props.setShownText('')
+          }}
         />
       </div>
       <InputTextarea
@@ -37,37 +50,23 @@ const PostsList = props => {
         autoResize
         style={{ width: '100%' }}
       />
-      <hr/>
+      <hr />
       <div className='post-list-images-title'>
         <h2>Post images</h2>
         <Button
           disabled={!props.photos.length}
           icon='pi pi-trash'
           className='p-button-rounded p-button-danger'
-          onClick={handlePhotosDelete}
+          onClick={() => props.setPhotos([])}
         />
       </div>
       <div className='card'>
-        <Paginator
-          first={first}
-          rows={1}
-          totalRecords={urls.length}
-          onPageChange={onPageChange}
-          template='FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink'
-        />
-        <div className='images-paginator'>
-          {urls.length ? (
-            <img
-              alt={first}
-              src={urls[first]}
-              className='shadow-2 border-round max-w-full'
-            />
-          ) : (
-            'No images yet'
-          )}
-        </div>
-      <hr/>
-
+        <DataTable value={photosWithButtons} className='p-datatable-sm images-table'>
+          {columns.map(col => (
+            <Column key={col.field} field={col.field} header={col.header} />
+          ))}
+        </DataTable>
+        <hr />
       </div>
     </div>
   )
