@@ -30,6 +30,7 @@ input.p-inputtext.p-component.p-filled.p-inputnumber-input {
   align-items: center;
 }
 .panel {
+  width: -moz-fit-content;
   width: fit-content;
 }
 .flex {
@@ -50,6 +51,7 @@ input.p-inputtext.p-component.p-filled.p-inputnumber-input {
 }
 .post-list-text-title,
 .groups-categories-text-title,
+.groups-results-text-title,
 .post-list-images-title {
   margin: 8px 0px !important;
   display: flex;
@@ -111,6 +113,7 @@ hr {
     justify-content: center;
     gap: 30px;
     margin-bottom: 20px;
+    width: -moz-fit-content;
     width: fit-content;
     margin: 15px auto;
     button {

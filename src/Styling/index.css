@@ -61,6 +61,7 @@ input.p-inputtext.p-component.p-filled.p-inputnumber-input {
 
 .post-list-text-title,
 .groups-categories-text-title,
+.groups-results-text-title,
 .post-list-images-title {
   margin: 8px 0px !important;
   display: flex;

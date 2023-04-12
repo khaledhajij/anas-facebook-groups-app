@@ -15,7 +15,8 @@ const Controls = ({
   shownText,
   setShownText,
   photos,
-  setPhotos
+  setPhotos,
+  setResults
 }) => {
   const selectedGroups = useSelector(selectedGroupsSelector)
   const canPost = (shownText || photos.length) && selectedGroups.length
@@ -48,9 +49,17 @@ const Controls = ({
           photos,
           groupId: group.id
         })
+        setResults(preRes => [
+          ...preRes,
+          {
+            text,
+            photos,
+            groupId: group.id
+          }
+        ])
         toast({
-          title: 'Posted',
-          description: `Posted successfully to the group with id ${group.id}`,
+          title: 'Starting post',
+          description: `Posting to the group with id ${group.id}`,
           status: 'success',
           duration: 2000,
           isClosable: true
@@ -73,25 +82,25 @@ const Controls = ({
         <TextDialog setShownText={setShownText} text={text} setText={setText} />
         <PhotosDialog photos={photos} setPhotos={setPhotos} />
       </div>
-        <div className='show-hide-buttons'>
-          {showPostButton ? (
-            <Button
-              disabled={!canPost}
-              className='p-button-rounded p-button-secondary start-post-button'
-              onClick={handlePost}
-            >
-              Start Post
-            </Button>
-          ) : (
-            <Button
-              disabled={!canPost}
-              onClick={handleStopPost}
-              className='p-button-rounded p-button-secondary start-post-button'
-            >
-              Stop Post
-            </Button>
-          )}
-        </div>
+      <div className='show-hide-buttons'>
+        {showPostButton ? (
+          <Button
+            disabled={!canPost}
+            className='p-button-rounded p-button-secondary start-post-button'
+            onClick={handlePost}
+          >
+            Start Post
+          </Button>
+        ) : (
+          <Button
+            disabled={!canPost}
+            onClick={handleStopPost}
+            className='p-button-rounded p-button-secondary start-post-button'
+          >
+            Stop Post
+          </Button>
+        )}
+      </div>
       <div className='controls-options'>
         <div className='post-options'>
           <label className='options' htmlFor='options'>
