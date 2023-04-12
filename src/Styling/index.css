@@ -155,4 +155,22 @@ hr {
 
 .text-center {
   text-align: center !important;
+}
+
+.add-new-text {
+  display: flex;
+  gap: 10px;
+}
+
+.random-text-list-item {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  width: 300px;
+  justify-content: space-between;
+}
+.random-text-list-item .check-delete {
+  display: flex;
+  gap: 5px;
+  align-items: center;
 }/*# sourceMappingURL=index.css.map */
