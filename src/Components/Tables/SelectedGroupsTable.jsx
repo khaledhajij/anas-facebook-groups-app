@@ -17,7 +17,6 @@ const SelectedGroupsTable = ({ visible, setVisible }) => {
   const categoryExists = useSelector(categoriesSelector).some(
     (category) => category.name === text.trim()
   );
-  console.log(categoryExists)
   const toast = useToast();
   const handleAccept = () => {
     // Check if a category with the same name already exists

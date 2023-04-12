@@ -5,13 +5,19 @@ import { Tag } from 'primereact/tag'
 import { Button } from 'primereact/button'
 import CheckboxInput from '../CheckboxInput'
 import SelectedGroupsTable from './SelectedGroupsTable'
-import { useSelector } from 'react-redux'
-import { groupsSelector, selectedGroupsSelector } from '../../groupsSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { Checkbox } from 'primereact/checkbox'
+
+import {
+  groupSelected,
+  groupsSelector,
+  selectedGroupsSelector
+} from '../../groupsSlice'
 const Table = () => {
   const groups = useSelector(groupsSelector)
   const selectedGroups = useSelector(selectedGroupsSelector)
   const [visible, setVisible] = useState(false)
-
+  const dispatch = useDispatch()
   const statusBodyTemplate = product => {
     return (
       <Tag value={product.inventoryStatus} severity='success'>
@@ -59,6 +65,12 @@ const Table = () => {
         resizableColumns
       >
         <Column
+          header={rowData => (
+            <Checkbox
+              onChange={() => dispatch(groupSelected({ id: 'all' }))}
+              checked={groups.every(group => group.selected)}
+            ></Checkbox>
+          )}
           body={rowData => (
             <CheckboxInput
               groups={groups}
@@ -68,6 +80,14 @@ const Table = () => {
             />
           )}
           style={{ width: '5px', textAlign: 'center' }}
+          headerStyle={{
+            width: '5px',
+            textAlign: 'center',
+            display: 'flex',
+            width: '100%',
+            height: '65px',
+            justifyContent: 'center'
+          }}
         ></Column>
         <Column
           filter

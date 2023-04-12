@@ -4,6 +4,7 @@ import { Button } from 'primereact/button'
 import { Paginator } from 'primereact/paginator'
 import { Column } from 'primereact/column'
 import { InputTextarea } from 'primereact/inputtextarea'
+import { ScrollPanel } from 'primereact/scrollpanel'
 
 const PostsList = props => {
   const handleDelete = index => {
@@ -60,15 +61,18 @@ const PostsList = props => {
           onClick={() => props.setPhotos([])}
         />
       </div>
-      <div className='card'>
-        <DataTable value={photosWithButtons} className='p-datatable-sm images-table'>
-          {columns.map(col => (
-            <Column key={col.field} field={col.field} header={col.header} />
-          ))}
-        </DataTable>
+          <DataTable
+            scrollHeight='300px'
+            scrollable
+            value={photosWithButtons}
+            className='p-datatable-sm images-table'
+          >
+            {columns.map(col => (
+              <Column key={col.field} field={col.field} header={col.header} />
+            ))}
+          </DataTable>
         <hr />
       </div>
-    </div>
   )
 }
 

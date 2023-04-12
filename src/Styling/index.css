@@ -69,7 +69,8 @@ input.p-inputtext.p-component.p-filled.p-inputnumber-input {
   gap: 10px;
 }
 
-.images-table td, .images-table th {
+.images-table td,
+.images-table th {
   text-align: -webkit-center !important;
 }
 
@@ -173,4 +174,11 @@ hr {
   display: flex;
   gap: 5px;
   align-items: center;
+}
+
+.show-hide-buttons {
+  margin: 10px 0px;
+}
+.show-hide-buttons button {
+  margin: auto;
 }/*# sourceMappingURL=index.css.map */

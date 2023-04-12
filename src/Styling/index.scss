@@ -57,8 +57,9 @@ input.p-inputtext.p-component.p-filled.p-inputnumber-input {
   justify-content: center;
   gap: 10px;
 }
-.images-table{
-  td, th {
+.images-table {
+  td,
+  th {
     text-align: -webkit-center !important;
   }
 }
@@ -137,19 +138,25 @@ hr {
 .text-center {
   text-align: center !important;
 }
-.add-new-text{
+.add-new-text {
   display: flex;
   gap: 10px;
 }
-.random-text-list-item{
+.random-text-list-item {
   display: flex;
   gap: 5px;
   align-items: center;
   width: 300px;
   justify-content: space-between;
-  .check-delete{
+  .check-delete {
     display: flex;
     gap: 5px;
     align-items: center;
+  }
+}
+.show-hide-buttons {
+  margin: 10px 0px;
+  button {
+    margin: auto;
   }
 }

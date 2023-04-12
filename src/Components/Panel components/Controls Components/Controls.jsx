@@ -23,7 +23,7 @@ const Controls = ({
   const [groups, setGroups] = React.useState(selectedGroups.length)
   const [postMode, setPostMode] = React.useState('order')
   const [timeoutIds, setTimeoutIds] = useState([])
-
+  const [showPostButton, setShowPostButton] = useState(true)
   const options = [
     { value: 'random', label: 'Random' },
     { value: 'order', label: 'Order' }
@@ -38,6 +38,7 @@ const Controls = ({
       ? selectedGroups
       : selectedGroups.slice().sort(() => Math.random() - 0.5)
   const handlePost = () => {
+    setShowPostButton(false)
     timeoutIds.forEach(timeoutId => clearTimeout(timeoutId))
     setTimeoutIds([])
     groupsPostedTo.slice(0, groups).forEach((group, index) => {
@@ -61,6 +62,7 @@ const Controls = ({
     })
   }
   const handleStopPost = () => {
+    setShowPostButton(true)
     timeoutIds.forEach(timeoutId => clearTimeout(timeoutId))
     setTimeoutIds([])
   }
@@ -70,21 +72,26 @@ const Controls = ({
       <div className='controls-buttons'>
         <TextDialog setShownText={setShownText} text={text} setText={setText} />
         <PhotosDialog photos={photos} setPhotos={setPhotos} />
-        <Button
-          disabled={!canPost}
-          className='p-button-rounded p-button-secondary start-post-button'
-          onClick={handlePost}
-        >
-          Start Post
-        </Button>
-        <Button
-          disabled={!canPost}
-          onClick={handleStopPost}
-          className='p-button-rounded p-button-secondary start-post-button'
-        >
-          Stop Post
-        </Button>
       </div>
+        <div className='show-hide-buttons'>
+          {showPostButton ? (
+            <Button
+              disabled={!canPost}
+              className='p-button-rounded p-button-secondary start-post-button'
+              onClick={handlePost}
+            >
+              Start Post
+            </Button>
+          ) : (
+            <Button
+              disabled={!canPost}
+              onClick={handleStopPost}
+              className='p-button-rounded p-button-secondary start-post-button'
+            >
+              Stop Post
+            </Button>
+          )}
+        </div>
       <div className='controls-options'>
         <div className='post-options'>
           <label className='options' htmlFor='options'>

@@ -60,7 +60,8 @@ const CategoriesTable = () => {
         <h2>Groups categories</h2>
       </div>
       <DataTable
-        header=''
+        scrollHeight='350px'
+        scrollable
         value={categories}
         onRowToggle={e => setExpandedRows(e.data)}
         expandedRows={expandedRows}

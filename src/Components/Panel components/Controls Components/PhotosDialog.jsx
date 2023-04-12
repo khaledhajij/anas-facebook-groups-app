@@ -3,9 +3,9 @@ import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
 import { FileUpload } from 'primereact/fileupload'
 
-const PhotosDialog = (props) => {
+const PhotosDialog = props => {
   const [visible, setVisible] = useState(false)
-
+  console.log(props.photos)
   const handlePhotoUpload = event => {
     props.setPhotos(photos => [...photos, ...event.files])
   }
@@ -14,6 +14,11 @@ const PhotosDialog = (props) => {
     props.setPhotos([])
     setVisible(false)
   }
+
+  const handleRemove = e => {
+    props.setPhotos(preArr => preArr.filter(ele => ele.objectURL === e.objectURL))
+  }
+
   const photoDialogFooter = (
     <>
       <Button
@@ -37,7 +42,7 @@ const PhotosDialog = (props) => {
       <Dialog
         header='Uploaded Photos'
         visible={visible}
-        onHide={()=>setVisible(false)}
+        onHide={() => setVisible(false)}
         modal
         footer={photoDialogFooter}
         style={{ width: '50vw' }}
@@ -45,11 +50,14 @@ const PhotosDialog = (props) => {
         <FileUpload
           name='photo'
           url='#'
+          onRemove={handleRemove}
           accept='image/*'
           maxFileSize={100000000}
           onSelect={handlePhotoUpload}
           multiple
-          emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>}
+          emptyTemplate={
+            <p className='m-0'>Drag and drop files to here to upload.</p>
+          }
         />
       </Dialog>
     )
